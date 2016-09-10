@@ -32,6 +32,7 @@ import (
 var (
 	pkg       = flag.String("package", "", "Go package")
 	verbose   = flag.Bool("v", false, "Pass '-v' argument to 'go test'")
+	coverpkg  = flag.String("coverpkg", ".", "sent as coverpkg argument to go test")
 	coverprof = flag.String("coverprofile", "", "If supplied, use a go cover profile")
 	covermode = flag.String("covermode", "count", "sent as covermode argument to go test")
 	repotoken = flag.String("repotoken", os.Getenv("COVERALLS_TOKEN"), "Repository Token on coveralls")
@@ -89,7 +90,7 @@ func getCoverage() ([]*SourceFile, error) {
 	defer os.Remove(f.Name())
 
 	cmd := exec.Command("go")
-	args := []string{"go", "test", "-covermode", *covermode, "-coverprofile", f.Name()}
+	args := []string{"go", "test", "-coverpkg", *coverpkg, "-covermode", *covermode, "-coverprofile", f.Name()}
 	if *verbose {
 		args = append(args, "-v")
 	}
