@@ -98,6 +98,7 @@ func getCoverage() ([]*SourceFile, error) {
 	if *pkg != "" {
 		args = append(args, *pkg)
 	}
+	args = append(args, strings.Split(*coverpkg, ",")...)
 	cmd.Args = args
 	b, err := cmd.CombinedOutput()
 	if err != nil {
