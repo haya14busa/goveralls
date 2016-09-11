@@ -102,7 +102,7 @@ func getCoverage() ([]*SourceFile, error) {
 		f.Close()
 
 		cmd := exec.Command("go")
-		args := []string{"go", "test", "-covermode", *covermode, "-coverprofile", f.Name()}
+		args := []string{"go", "test", "-covermode", *covermode, "-coverprofile", f.Name(), "-coverpkg", "./..."}
 		if *verbose {
 			args = append(args, "-v")
 		}
